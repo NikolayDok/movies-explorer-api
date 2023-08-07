@@ -62,7 +62,7 @@ const getMovies = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  Movie.findById(req.params._id)
+  Movie.findById(req.params.movieId)
     .orFail(() => {
       throw new NotFoundError('Фильм не найден');
     })
@@ -70,7 +70,7 @@ const deleteMovie = (req, res, next) => {
       if (`${movie.owner}` !== req.user._id) {
         throw new ForbiddenError('Нельзя удалить чужой фильм');
       }
-      Movie.findByIdAndRemove(req.params._id)
+      Movie.findByIdAndRemove(req.params.movieId)
         .orFail(() => {
           throw new NotFoundError('Фильм не найден');
         })
